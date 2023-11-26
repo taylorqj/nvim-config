@@ -1,37 +1,70 @@
 local lsp = require('lsp-zero')
 
-lsp.on_attach(function(client, bufnr)
-	-- see :help lsp-zero-keybindings
-	-- to learn the available actions
-	lsp.default_keymaps({buffer = bufnr})
+lsp.on_attach(function(_, bufnr)
+    -- see :help lsp-zero-keybindings
+    -- to learn the available actions
+    lsp.default_keymaps({buffer = bufnr})
 end)
 
-lsp.preset("recommended")
-lsp.setup_servers({
-	"tsserver",
-	"eslint",
-	"lua_ls",
-	"rust_analyzer",
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    -- Replace the language servers listed here 
+    -- with the ones you want to install
+    ensure_installed = {
+        'tsserver',
+        'rust_analyzer',
+        'eslint',
+        'lua_ls',
+    },
+    handlers = {
+        lsp.default_setup,
+    },
 })
 
+lsp.configure('lua_ls', {
+    cmd = { "lua-language-server" },
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+})
 
 local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
+
+local has_words_before = function()
+    unpack = unpack or table.unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+end
 
 cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-    -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
+    mapping = {
+        ['<C-Space>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+        },
 
-    -- Ctrl+Space to trigger completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
+        ['<Tab>'] = function(fallback)
+            if not cmp.select_next_item() then
+                if vim.bo.buftype ~= 'prompt' and has_words_before() then
+                    cmp.complete()
+                else
+                    fallback()
+                end
+            end
+        end,
 
-    -- Navigate between snippet placeholder
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-    -- Scroll up and down in the completion documentation
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  })
+        ['<S-Tab>'] = function(fallback)
+            if not cmp.select_prev_item() then
+                if vim.bo.buftype ~= 'prompt' and has_words_before() then
+                    cmp.complete()
+                else
+                    fallback()
+                end
+            end
+        end,
+    },
 })
