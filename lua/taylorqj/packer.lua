@@ -17,14 +17,18 @@ return require('packer').startup(function(use)
         'rose-pine/neovim',
         as = 'rose-pine',
         config = function()
+            require('rose-pine').setup({
+                disable_italics = true
+            })
+
             vim.cmd("colorscheme rose-pine")
         end
     })
-    use {
+    use({
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
-    }
-    use {
+    })
+    use({
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
         requires = {
@@ -35,5 +39,7 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'L3MON4D3/LuaSnip' },
         }
-    }
+    })
+    use({ 'jose-elias-alvarez/null-ls.nvim' })
+    use({ 'MunifTanjim/prettier.nvim' })
 end)

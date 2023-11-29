@@ -14,10 +14,19 @@ require('mason-lspconfig').setup({
         'tsserver',
         'rust_analyzer',
         'eslint',
+        'ruff_lsp',
         'lua_ls',
+        'pyright',
     },
     handlers = {
         lsp.default_setup,
+        ["ruff_lsp"] = function()
+            require("lspconfig").ruff_lsp.setup {
+                on_attach = function(client)
+                    client.server_capabilities.hoverProvider = false
+                end
+            }
+        end
     },
 })
 
