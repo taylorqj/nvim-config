@@ -155,6 +155,11 @@ _G.packer_plugins = {
     path = "/Users/tqj/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
   },
+  ["telescope-ag"] = {
+    loaded = true,
+    path = "/Users/tqj/.local/share/nvim/site/pack/packer/start/telescope-ag",
+    url = "https://github.com/kelly-lin/telescope-ag"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/tqj/.local/share/nvim/site/pack/packer/start/telescope.nvim",

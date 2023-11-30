@@ -42,4 +42,8 @@ return require('packer').startup(function(use)
     })
     use({ 'jose-elias-alvarez/null-ls.nvim' })
     use({ 'MunifTanjim/prettier.nvim' })
+    use({
+        "kelly-lin/telescope-ag",
+        requires = { "nvim-telescope/telescope.nvim" },
+    })
 end)
