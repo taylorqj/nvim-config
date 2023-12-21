@@ -16,13 +16,6 @@ return require('packer').startup(function(use)
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
-        config = function()
-            require('rose-pine').setup({
-                disable_italics = true
-            })
-
-            vim.cmd("colorscheme rose-pine")
-        end
     })
     use({
         'nvim-treesitter/nvim-treesitter',
@@ -42,6 +35,7 @@ return require('packer').startup(function(use)
     })
     use({ 'jose-elias-alvarez/null-ls.nvim' })
     use({ 'MunifTanjim/prettier.nvim' })
+    use({ 'github/copilot.vim' })
     use({
         "kelly-lin/telescope-ag",
         requires = { "nvim-telescope/telescope.nvim" },
