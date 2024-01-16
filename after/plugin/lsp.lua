@@ -1,9 +1,9 @@
-local lsp = require('lsp-zero')
+local lsp_zero = require('lsp-zero')
 
-lsp.on_attach(function(_, bufnr)
+lsp_zero.on_attach(function(_, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
-    lsp.default_keymaps({ buffer = bufnr })
+    lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
 require('mason').setup({})
@@ -19,7 +19,7 @@ require('mason-lspconfig').setup({
         'pyright',
     },
     handlers = {
-        lsp.default_setup,
+        lsp_zero.default_setup,
         ["ruff_lsp"] = function()
             require("lspconfig").ruff_lsp.setup {
                 on_attach = function(client)
@@ -30,7 +30,7 @@ require('mason-lspconfig').setup({
     },
 })
 
-lsp.configure('lua_ls', {
+lsp_zero.configure('lua_ls', {
     cmd = { "lua-language-server" },
     settings = {
         Lua = {

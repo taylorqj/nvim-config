@@ -29,4 +29,4 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
