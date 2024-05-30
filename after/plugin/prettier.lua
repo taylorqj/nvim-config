@@ -44,6 +44,7 @@ prettier.setup({
         "less",
         "markdown",
         "scss",
+        "go",
         "typescript",
         "typescriptreact",
         "yaml",

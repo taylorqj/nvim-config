@@ -47,4 +47,8 @@ return require('packer').startup(function(use)
         "kelly-lin/telescope-ag",
         requires = { "nvim-telescope/telescope.nvim" },
     })
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 end)

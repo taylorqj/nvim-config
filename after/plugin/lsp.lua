@@ -17,16 +17,10 @@ require('mason-lspconfig').setup({
         'ruff_lsp',
         'lua_ls',
         'pyright',
+        'golangci_lint_ls',
     },
     handlers = {
         lsp_zero.default_setup,
-        ["ruff_lsp"] = function()
-            require("lspconfig").ruff_lsp.setup {
-                on_attach = function(client)
-                    client.server_capabilities.hoverProvider = false
-                end
-            }
-        end
     },
 })
 
