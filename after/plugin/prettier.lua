@@ -1,4 +1,4 @@
-local null_ls = require("null-ls")
+local null_ls = require("null-ls") -- using none-ls (maintained fork), API compatible
 local prettier = require("prettier")
 
 local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
