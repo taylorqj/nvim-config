@@ -29,3 +29,12 @@ vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>",       { desc = "Cl
 vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>",        { desc = "Claude: send selection" })
 vim.keymap.set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>",  { desc = "Claude: accept diff" })
 vim.keymap.set("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",    { desc = "Claude: deny diff" })
+
+-- Cursor agent integrations
+vim.keymap.set("n", "<leader>ag", "<cmd>CursorAgent code-reviewer<cr>", { desc = "Cursor: code reviewer agent" })
+vim.keymap.set("n", "<leader>ap", function()
+  local pr = vim.fn.input("PR number or URL: ")
+  if pr ~= "" then
+    vim.cmd("CursorReviewPR " .. pr)
+  end
+end, { desc = "Cursor: review PR" })
